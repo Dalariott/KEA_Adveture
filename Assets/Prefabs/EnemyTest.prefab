@@ -342,7 +342,6 @@ GameObject:
   - component: {fileID: 5623103292594962357}
   - component: {fileID: 1953832023096857166}
   - component: {fileID: 270436367113212331}
-  - component: {fileID: 2049947549361236813}
   - component: {fileID: 6511399699991727470}
   - component: {fileID: 3993957344373143336}
   - component: {fileID: 6711260923722136116}
@@ -449,34 +448,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2049947549361236813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735102351888882933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5207593ded237c344a96c904bd6b14a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 100
-  _sightRange: 5
-  _attackRange: 1.8
-  _enemyWeapon: {fileID: 3979582458304013227}
-  _player: {fileID: 0}
-  _ownNavMesh: {fileID: 6711260923722136116}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 268435456
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  textDmg: {fileID: 1036445487}
-  damageReceived: {fileID: 8300000, guid: 6138156b7f9a495479d1a6333ebac58d, type: 3}
-  destroyMyself: {fileID: 8300000, guid: 7656b3d311d2a5a44b1b4f327ffbdf73, type: 3}
-  Idle: {fileID: 8300000, guid: 566528b1b35497447ac4e80a2f7977a3, type: 3}
 --- !u!95 &6511399699991727470
 Animator:
   serializedVersion: 3
@@ -839,7 +810,6 @@ GameObject:
   - component: {fileID: 7093994442677295268}
   - component: {fileID: 3611250836242412713}
   - component: {fileID: 3623753976997057716}
-  - component: {fileID: 1778815472873326701}
   - component: {fileID: 7122273290759926218}
   - component: {fileID: 6035193571755210226}
   m_Layer: 0
@@ -941,22 +911,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1778815472873326701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979582458304013227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 523fdb63a95c3f84cad8daabda91fbe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollidePlayerAudio: {fileID: 0}
-  collideAudio: {fileID: 0}
-  enemyDamage: 1
-  attackPlayer: 0
 --- !u!82 &7122273290759926218
 AudioSource:
   m_ObjectHideFlags: 0
