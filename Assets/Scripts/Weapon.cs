@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {

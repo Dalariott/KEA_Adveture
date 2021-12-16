@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class Enemy : MonoBehaviour
     //Serailize Variables   
     [SerializeField] float _health, _sightRange, _attackRange;
     [SerializeField] GameObject _enemyWeapon;
-    [SerializeField] Transform _player;
-    [SerializeField] UnityEngine.AI.NavMeshAgent _ownNavMesh;
+    private Transform _playerPosition;
+    private UnityEngine.AI.NavMeshAgent _ownNavMesh;
     [SerializeField] LayerMask playerLayer, groundLayer;
     [SerializeField] TextMeshPro textDmg;
         //Sound
@@ -24,18 +25,19 @@ public class Enemy : MonoBehaviour
     private bool _atkPlayer, _inSight, _inRangeAttack;
     private string stringDmg;    
     private float damageWeapon;
+    private Vector3 _currentPlayerPosition, _lastPlayerPostion;
 
     // Start is called before the first frame update
     void Start()
     {
         _anim = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();           
+        _audioSource = GetComponent<AudioSource>();
+        _ownNavMesh = GetComponent<NavMeshAgent>(); 
     }
 
     void Awake()
-    {
-        _player = GameObject.Find("Player").transform;
-        _ownNavMesh = GetComponent<UnityEngine.AI.NavMeshAgent>();
+    {       
+        _ownNavMesh = GetComponent<UnityEngine.AI.NavMeshAgent>();   
     }
 
     // Update is called once per frame
@@ -50,12 +52,25 @@ public class Enemy : MonoBehaviour
     //Comapare Ranges
     private void Range()
     {
-        _inSight = Physics.CheckSphere(transform.position, _sightRange, playerLayer);
+        _inSight = Physics.CheckSphere(transform.position, _sightRange, playerLayer);   
         _inRangeAttack = Physics.CheckSphere(transform.position, _attackRange, playerLayer);
 
-        if (_inSight && _inRangeAttack) AttackRange();
-        if (_inSight && !_inRangeAttack) ChasePlayer();        
-        if (!_inSight && !_inRangeAttack);
+        if (_inSight && _inRangeAttack) 
+        {            
+            AttackRange();
+        }
+
+        if (_inSight && !_inRangeAttack)
+        {
+            _playerPosition = GameObject.Find("Player").transform;
+            _anim.SetBool("Walk", true);
+            _ownNavMesh.destination = _playerPosition.position;
+        }       
+        if (!_inSight && !_inRangeAttack)
+        {
+            _anim.SetBool("Walk", false);
+            _ownNavMesh.ResetPath();
+        }
     }
 
     //Display text on the UI
@@ -95,7 +110,7 @@ public class Enemy : MonoBehaviour
     //Mehtod to set off the text UI for the damage
     void OffTextDmg()
     {
-        damageWeapon = 0;        
+        damageWeapon = 0;
         _anim.SetBool("Damage", false);
     }
 
@@ -110,24 +125,29 @@ public class Enemy : MonoBehaviour
     {
         if (_health <= 0)
         {
-            Invoke(nameof(DestroyObject), 2);
+            //Invoke(nameof(DestroyObject), 2);
             _audioSource.PlayOneShot(destroyMyself, 0.1F);
-            _anim.SetBool("Destroy", true);
+            _anim.Play("Destroy");
         }
     }
 
     //Chase the player to fucking kill him >:)
     private void ChasePlayer()
-    {
-        _ownNavMesh.SetDestination(_player.position);     
+    {       
+        _anim.SetBool("Walk", true);
+        _ownNavMesh.destination = _playerPosition.position;        
     }
 
     //Method that makes the enemy attack the player
     private void AttackRange()
     {
-        _ownNavMesh.SetDestination(transform.position);
-        transform.LookAt(_player.transform);      
-        
+        if (_playerPosition) // we get sure the target is here
+        {
+            var rotationAngle = Quaternion.LookRotation(_playerPosition.position - transform.position); // we get the angle has to be rotated
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotationAngle, Time.deltaTime * 5f); // we rotate the rotationAngle 
+            _anim.SetBool("Walk", false);
+        }
+         
     }
 
     private void Attack()
@@ -148,8 +168,8 @@ public class Enemy : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + (Vector3.up * 0.5f), _attackRange);
+        Gizmos.DrawWireSphere(transform.position + (Vector3.up * 0.1f), _attackRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + (Vector3.up * 1.5f), _sightRange);
+        Gizmos.DrawWireSphere(transform.position + (Vector3.up * 0.1f), _sightRange);
     }
 }
