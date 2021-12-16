@@ -29,13 +29,14 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         _anim = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();           
+        _audioSource = GetComponent<AudioSource>();        
     }
 
     void Awake()
     {
         _player = GameObject.Find("Player").transform;
         _ownNavMesh = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        
     }
 
     // Update is called once per frame
@@ -55,7 +56,7 @@ public class Enemy : MonoBehaviour
 
         if (_inSight && _inRangeAttack) AttackRange();
         if (_inSight && !_inRangeAttack) ChasePlayer();        
-        if (!_inSight && !_inRangeAttack);
+        if (!_inSight && !_inRangeAttack) _anim.SetBool("Walk",false); 
     }
 
     //Display text on the UI
@@ -95,7 +96,7 @@ public class Enemy : MonoBehaviour
     //Mehtod to set off the text UI for the damage
     void OffTextDmg()
     {
-        damageWeapon = 0;        
+        damageWeapon = 0;
         _anim.SetBool("Damage", false);
     }
 
@@ -110,21 +111,23 @@ public class Enemy : MonoBehaviour
     {
         if (_health <= 0)
         {
-            Invoke(nameof(DestroyObject), 2);
+            //Invoke(nameof(DestroyObject), 2);
             _audioSource.PlayOneShot(destroyMyself, 0.1F);
-            _anim.SetBool("Destroy", true);
+            _anim.Play("Destroy");
         }
     }
 
     //Chase the player to fucking kill him >:)
     private void ChasePlayer()
     {
-        _ownNavMesh.SetDestination(_player.position);     
+        _ownNavMesh.SetDestination(_player.position);
+        _anim.SetBool("Walk", true);
     }
 
     //Method that makes the enemy attack the player
     private void AttackRange()
     {
+        _anim.SetBool("Walk", false);
         _ownNavMesh.SetDestination(transform.position);
         transform.LookAt(_player.transform);      
         
