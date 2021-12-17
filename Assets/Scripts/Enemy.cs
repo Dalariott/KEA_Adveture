@@ -146,6 +146,7 @@ public class Enemy : MonoBehaviour
             var rotationAngle = Quaternion.LookRotation(_playerPosition.position - transform.position); // we get the angle has to be rotated
             transform.rotation = Quaternion.Slerp(transform.rotation, rotationAngle, Time.deltaTime * 5f); // we rotate the rotationAngle 
             _anim.SetBool("Walk", false);
+            _anim.SetBool("Attack", true);
         }
          
     }
