@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,12 +13,11 @@ public class Enemy : MonoBehaviour
 
     //Serailize Variables   
     [SerializeField] float _health, _sightRange, _attackRange;
-    [SerializeField] GameObject _enemyWeapon;
-    private Transform _playerPosition;
-    private UnityEngine.AI.NavMeshAgent _ownNavMesh;
+    [SerializeField] GameObject _enemyWeapon;    
     [SerializeField] LayerMask playerLayer, groundLayer;
     [SerializeField] TextMeshPro textDmg;
-        //Sound
+    [SerializeField] GameObject windowLoot;
+    //Sound
     [SerializeField] AudioClip damageReceived;
     [SerializeField] AudioClip destroyMyself;
     [SerializeField] AudioClip Idle;
@@ -25,7 +25,8 @@ public class Enemy : MonoBehaviour
     private bool _atkPlayer, _inSight, _inRangeAttack;
     private string stringDmg;    
     private float damageWeapon;
-    private Vector3 _currentPlayerPosition, _lastPlayerPostion;
+    private Transform _playerPosition;
+    private UnityEngine.AI.NavMeshAgent _ownNavMesh;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +46,6 @@ public class Enemy : MonoBehaviour
     {
         DeathObject();        
         TextDamage();
-        Attack();
         Range();
     }
 
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
 
         if (_inSight && !_inRangeAttack)
         {
-            _playerPosition = GameObject.Find("Player").transform;
+            _playerPosition = GameObject.Find("Camera (head)").transform;
             _anim.SetBool("Walk", true);
             _ownNavMesh.destination = _playerPosition.position;
         }       
@@ -125,9 +125,10 @@ public class Enemy : MonoBehaviour
     {
         if (_health <= 0)
         {
-            //Invoke(nameof(DestroyObject), 2);
+            Invoke(nameof(DestroyObject), 2);
             _audioSource.PlayOneShot(destroyMyself, 0.1F);
             _anim.Play("Destroy");
+            windowLoot.SetActive(true);
         }
     }
 
@@ -150,21 +151,6 @@ public class Enemy : MonoBehaviour
         }
          
     }
-
-    private void Attack()
-    {
-        _atkPlayer = _enemyWeapon.GetComponent<EnemyAtk>().attackPlayer;
-        if (_atkPlayer == true)
-        {
-            _anim.SetBool("Attack", true);
-        }
-        else
-        {
-            //_audioSource.PlayOneShot(Idle, 0.7F);
-            _anim.SetBool("Attack", false);
-        }
-    }
-
 
     private void OnDrawGizmosSelected()
     {

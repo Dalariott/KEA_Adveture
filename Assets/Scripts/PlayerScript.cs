@@ -10,25 +10,21 @@ public class PlayerScript : MonoBehaviour
     private float damageEnemy;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //Collider detection
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Weapon Enemy")
+        if (collision.gameObject.tag == "Weapon")
         {
-            damageEnemy = collision.gameObject.GetComponent<EnemyAtk>().enemyDamage;
+            damageEnemy = collision.gameObject.GetComponent<Weapon>().damage;
             currentHealth -= damageEnemy;
+            
             Invoke(nameof(DmgOff), 0.5f);
+            Debug.Log("Life" + currentHealth);
         }
     }
 

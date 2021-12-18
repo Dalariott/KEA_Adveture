@@ -18,7 +18,7 @@ public class HealthScript : MonoBehaviour
         //_anim = GetComponent<Animator>();
         healthBar = GetComponent<Slider>();
         healthBar.minValue = 0;
-    }
+    }  
 
     // Update is called once per frame
     void Update()
@@ -27,5 +27,6 @@ public class HealthScript : MonoBehaviour
         healthBar.maxValue = getHealthPlayer;
         getCurrentHealthPlayer = _playerAttribute.GetComponent<PlayerScript>().currentHealth;
         healthBar.value = getCurrentHealthPlayer;
+
     }
 }
