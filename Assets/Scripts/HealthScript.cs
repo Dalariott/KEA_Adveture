@@ -6,10 +6,7 @@ using UnityEngine.UI;
 public class HealthScript : MonoBehaviour
 {
     //Animator _anim;
-    private float getHealthPlayer;
-    private float healthPlayer;
-    private float getCurrentHealthPlayer;
-    [SerializeField] GameObject _playerAttribute;
+    [SerializeField] Stats stat;
     Slider healthBar;
 
     // Start is called before the first frame update
@@ -23,10 +20,8 @@ public class HealthScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        getHealthPlayer = _playerAttribute.GetComponent<PlayerScript>().maxHealth;
-        healthBar.maxValue = getHealthPlayer;
-        getCurrentHealthPlayer = _playerAttribute.GetComponent<PlayerScript>().currentHealth;
-        healthBar.value = getCurrentHealthPlayer;
+        healthBar.maxValue = stat.maxHealth;
+        healthBar.value = stat.currentHealth;
 
     }
 }
