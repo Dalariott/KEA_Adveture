@@ -5,29 +5,29 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     //Variables       
-    public float maxHealth;
-    public float currentHealth;
+    private float maxHealth;
     private float damageEnemy;
+    [SerializeField] Stats stat;
 
-    // Start is called before the first frame update
-    void Start()
+    //Awake
+    void Awake()
     {
-        currentHealth = maxHealth;
+        maxHealth = 10;
     }
-
-    // Update is called once per frame
+    
+    //Update
     void Update()
     {
-        
+        stat.maxHealth = maxHealth;
     }
-
+ 
     //Collider detection
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Weapon Enemy")
+        if (collision.gameObject.tag == "Weapon")
         {
-            damageEnemy = collision.gameObject.GetComponent<EnemyAtk>().enemyDamage;
-            currentHealth -= damageEnemy;
+            damageEnemy = collision.gameObject.GetComponent<Weapon>().damage;
+            stat.currentHealth -= damageEnemy;            
             Invoke(nameof(DmgOff), 0.5f);
         }
     }
