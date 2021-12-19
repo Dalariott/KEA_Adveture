@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   maxHealth: 10
-  currentHealth: 0
+  currentHealth: -8

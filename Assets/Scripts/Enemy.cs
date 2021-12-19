@@ -12,11 +12,12 @@ public class Enemy : MonoBehaviour
     Animator _anim;
 
     //Serailize Variables   
-    [SerializeField] float _health, _sightRange, _attackRange;
+    [SerializeField] float _sightRange, _attackRange;
     [SerializeField] GameObject _enemyWeapon;    
     [SerializeField] LayerMask playerLayer, groundLayer;
     [SerializeField] TextMeshPro textDmg;
     [SerializeField] GameObject windowLoot;
+    [SerializeField] Stats stat;
     //Sound
     [SerializeField] AudioClip damageReceived;
     [SerializeField] AudioClip destroyMyself;
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
     //Private
     private bool _atkPlayer, _inSight, _inRangeAttack;
     private string stringDmg;    
-    private float damageWeapon;
+    private float damageWeapon, _health;
     private Transform _playerPosition;
     private UnityEngine.AI.NavMeshAgent _ownNavMesh;
 
@@ -37,7 +38,10 @@ public class Enemy : MonoBehaviour
     }
 
     void Awake()
-    {       
+    {
+        _health = 10;
+        stat.maxHealth = _health;
+        stat.currentHealth = _health;
         _ownNavMesh = GetComponent<UnityEngine.AI.NavMeshAgent>();   
     }
 
@@ -101,7 +105,7 @@ public class Enemy : MonoBehaviour
     //Method to calculate the damage received
     private void DmgReceived(float dmg)
     {
-        _health -= dmg;
+        stat.currentHealth -= dmg;
         stringDmg = (dmg).ToString();
         _anim.SetBool("Damage", true);
         _audioSource.PlayOneShot(damageReceived, 0.9F);
@@ -123,7 +127,7 @@ public class Enemy : MonoBehaviour
     //Method that kills the enemy
     private void DeathObject()
     {
-        if (_health <= 0)
+        if (stat.currentHealth <= 0)
         {
             Invoke(nameof(DestroyObject), 2);
             _audioSource.PlayOneShot(destroyMyself, 0.1F);

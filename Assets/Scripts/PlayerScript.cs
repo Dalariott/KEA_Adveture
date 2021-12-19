@@ -13,12 +13,13 @@ public class PlayerScript : MonoBehaviour
     void Awake()
     {
         maxHealth = 10;
+        stat.currentHealth = maxHealth;
     }
     
     //Update
     void Update()
     {
-        stat.maxHealth = maxHealth;
+        stat.maxHealth = maxHealth;        
     }
  
     //Collider detection
