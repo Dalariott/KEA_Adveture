@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   maxHealth: 10
-  currentHealth: -8
+  currentHealth: 10
+  healthRegen: 0.1
+  xpPlayer: 0
+  strenghtPlayer: 4
+  playerLevel: 1

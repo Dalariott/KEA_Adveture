@@ -25,5 +25,5 @@ MonoBehaviour:
   damageReceived: {fileID: 8300000, guid: 0a099381ee0ae5543b80d58f90e25320, type: 3}
   destroyMyself: {fileID: 8300000, guid: 6e33587c5c1f75c4297cc7cbc1fb2d6a, type: 3}
   idle: {fileID: 8300000, guid: 66d4c3bb893b2f74a90bd592bfc49c6b, type: 3}
-  maxHealth: 200
-  currentHealth: 159
+  maxHealth: 100
+  currentHealth: 100
