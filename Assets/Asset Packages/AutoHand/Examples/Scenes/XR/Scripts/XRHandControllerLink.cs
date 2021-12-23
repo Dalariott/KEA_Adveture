@@ -38,6 +38,9 @@ namespace Autohand.Demo{
         [Tooltip("This axis will bend all the fingers on the hand -> replaced with finger bender scripts")]
         public CommonAxis grabAxis = CommonAxis.trigger;
         public CommonButton squeezeButton = CommonButton.gripButton;
+        public CommonButton menuButton = CommonButton.menuButton;
+
+        [SerializeField] GameObject mainMenu;
 
         XRNode role;
         bool squeezing;
@@ -64,14 +67,34 @@ namespace Autohand.Demo{
         void Update(){
             InputDevices.GetDevicesAtXRNode(role, devices);
             if(devices.Count > 0)
-                device = devices[0];
+                device = devices[0];            
 
-            if(device != null && device.isValid){
+            if (device != null && device.isValid){
                 //Sets hand fingers wrap
                 hand.SetGrip(GetAxis(grabAxis));
 
+                //Menu button                
+                if (device.TryGetFeatureValue(GetCommonButton(menuButton), out bool pressed))
+                {
+
+                    if (pressed && mainMenu.activeSelf == false)
+                    {
+                        mainMenu.SetActive(true);
+                        pressed = false;
+                    }
+                    else if (!pressed && mainMenu.activeSelf == true)
+                    {
+                        mainMenu.SetActive(false);
+                        pressed = true;
+                    }
+                    
+                }
+                
+
+                                 
+
                 //Grab input
-                if(device.TryGetFeatureValue(GetCommonButton(grabButton), out bool grip)) {
+                if (device.TryGetFeatureValue(GetCommonButton(grabButton), out bool grip)) {
                     if(grabbing && !grip){
                         hand.Release();
                         grabbing = false;

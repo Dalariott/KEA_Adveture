@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Weapon : MonoBehaviour
 {
@@ -8,9 +9,10 @@ public class Weapon : MonoBehaviour
     //Sound vars
     AudioSource _audioSource;
     [SerializeField] AudioClip CollideEnemyAudio;
-    [SerializeField] AudioClip collideAudio;
-    
-    
+    [SerializeField] AudioClip collideAudio; 
+    private Behaviour bhvr;
+
+
     //Damage vars
     public float damage;
 
@@ -18,15 +20,15 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        bhvr = GetComponent<ParentConstraint>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             _audioSource.PlayOneShot(CollideEnemyAudio, 0.6F);
         }
 
-        _audioSource.PlayOneShot(collideAudio, 0.7F);
     }
 }
