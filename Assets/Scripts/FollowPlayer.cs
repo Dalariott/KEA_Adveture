@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations;
 
 public class FollowPlayer : MonoBehaviour
 {
     public Transform player;
     NavMeshAgent navAgent;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,4 +21,5 @@ public class FollowPlayer : MonoBehaviour
     {
         navAgent.SetDestination(player.position);
     }
+      
 }

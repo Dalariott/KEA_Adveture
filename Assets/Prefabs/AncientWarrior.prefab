@@ -1467,7 +1467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808791e3a27ada7469f6fcc5b149f9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
   _sightRange: 0
   _attackRange: 0
   _enemyWeapon: {fileID: 0}
@@ -1479,6 +1478,7 @@ MonoBehaviour:
     m_Bits: 0
   textDmg: {fileID: 0}
   windowLoot: {fileID: 0}
+  stat: {fileID: 0}
   damageReceived: {fileID: 0}
   destroyMyself: {fileID: 0}
   Idle: {fileID: 0}
@@ -2347,7 +2347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808791e3a27ada7469f6fcc5b149f9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 10
   _sightRange: 4.71
   _attackRange: 1.5
   _enemyWeapon: {fileID: 8485778134454109124}
@@ -2358,7 +2357,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   textDmg: {fileID: 169371678008961825}
-  windowLoot: {fileID: 0}
+  windowLoot: {fileID: 2844012613017699701, guid: 49a780239473bd14bba6c4560799be71, type: 3}
+  stat: {fileID: 11400000, guid: 54d0e1682a9ae024e82e69b80b9bca63, type: 2}
   damageReceived: {fileID: 8300000, guid: 0a099381ee0ae5543b80d58f90e25320, type: 3}
   destroyMyself: {fileID: 8300000, guid: 6e33587c5c1f75c4297cc7cbc1fb2d6a, type: 3}
   Idle: {fileID: 8300000, guid: 66d4c3bb893b2f74a90bd592bfc49c6b, type: 3}

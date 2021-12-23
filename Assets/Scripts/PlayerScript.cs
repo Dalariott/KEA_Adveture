@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
-    //Variables       
-    private float maxHealth;
+    //Variables  
     private float damageEnemy;
+    private float healthRegenTime;
     [SerializeField] Stats stat;
+    //[SerializeField] GameObject damageCanvas;
 
     //Awake
     void Awake()
     {
-        maxHealth = 10;
+        healthRegenTime = 0;
     }
     
     //Update
     void Update()
     {
-        stat.maxHealth = maxHealth;
+        if (stat.currentHealth > stat.maxHealth) stat.currentHealth = stat.maxHealth;
+        HealthRegen();    
     }
  
     //Collider detection
@@ -27,7 +30,8 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.tag == "Weapon")
         {
             damageEnemy = collision.gameObject.GetComponent<Weapon>().damage;
-            stat.currentHealth -= damageEnemy;            
+            stat.currentHealth -= damageEnemy;
+            //damageCanvas.SetActive(true);
             Invoke(nameof(DmgOff), 0.5f);
         }
     }
@@ -36,5 +40,18 @@ public class PlayerScript : MonoBehaviour
     private void DmgOff()
     {
         damageEnemy = 0;
+        //damageCanvas.SetActive(false);
+    }
+
+    void HealthRegen()
+    {
+        stat.healthRegen = stat.maxHealth/100;        
+        healthRegenTime += Time.deltaTime;
+
+        if (healthRegenTime >= 5)
+        {
+            stat.currentHealth += stat.healthRegen;
+            healthRegenTime = 0;
+        }
     }
 }

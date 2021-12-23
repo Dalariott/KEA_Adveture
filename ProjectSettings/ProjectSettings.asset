@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 1
+  m_ActiveColorSpace: 0
   m_MTRendering: 1
   mipStripping: 0
   numberOfMipsStripped: 0
@@ -147,10 +147,15 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: b36526ba9391f4e4bb8b1b174eba31b6, type: 2}
   - {fileID: -3710387525892399639, guid: b58fede50488f8843a8f2355e9b9c723, type: 2}
   - {fileID: -2366976486107432616, guid: 5d3b9d7e43b04254d9d620a0aa9c7e5c, type: 2}
   - {fileID: 11400000, guid: 5feff3f552e4b0446b9652b44e55e94b, type: 2}
-  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -167,7 +172,9 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Android: com.DefaultCompany.KEA_Adventure
+    Standalone: com.DefaultCompany.KEAAdventure
   buildNumber:
     Standalone: 0
     iPhone: 0
