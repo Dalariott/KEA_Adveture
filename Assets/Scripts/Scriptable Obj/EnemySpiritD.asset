@@ -26,4 +26,4 @@ MonoBehaviour:
   destroyMyself: {fileID: 8300000, guid: 6e33587c5c1f75c4297cc7cbc1fb2d6a, type: 3}
   idle: {fileID: 8300000, guid: 66d4c3bb893b2f74a90bd592bfc49c6b, type: 3}
   maxHealth: 100
-  currentHealth: 100
+  currentHealth: 500

@@ -27,7 +27,7 @@ public class PlayerScript : MonoBehaviour
     //Collider detection
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Weapon")
+        if (collision.gameObject.tag == "WepEnemy")
         {
             damageEnemy = collision.gameObject.GetComponent<Weapon>().damage;
             stat.currentHealth -= damageEnemy;

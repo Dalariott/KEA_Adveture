@@ -13,7 +13,6 @@ public class EnemyStats : ScriptableObject
     //Serailize Variables   
     public float _sightRange, _attackRange;
     public LayerMask playerLayer, groundLayer;
-    [SerializeField] TextMeshPro textDmg;
     [SerializeField] GameObject windowLoot;
     //Sound
     public AudioClip damageReceived;
