@@ -35,9 +35,9 @@ public class MainMenu : MonoBehaviour
         healthBar.value = playerStat.currentHealth;
         currentHealth.text = playerStat.currentHealth.ToString() +"/"+playerStat.maxHealth.ToString();
 
-        xpBar.maxValue = (playerStat.playerLevel)*(50);
-        xpBar.value = playerStat.xpPlayer;
-        currentXP.text = playerStat.xpPlayer.ToString() + "/" + xpBar.maxValue.ToString();
+        xpBar.maxValue = playerStat.maxXpPlayer;
+        xpBar.value = playerStat.currentXpPlayer;
+        currentXP.text = playerStat.currentXpPlayer.ToString() + "/" + xpBar.maxValue.ToString();
 
         time.text = System.DateTime.Now.ToString("HH:mm:ss");
 

@@ -7,10 +7,11 @@ public class Stats : ScriptableObject
 {     
     public float maxHealth;
     public float currentHealth;
+    public string totalHealthText;
     public float healthRegen;
-    public float xpPlayer;
+    public float maxXpPlayer;
+    public float currentXpPlayer;
     public float strenghtPlayer;
-    public int playerLevel;
-    
-    
+    public float healthModifier;
+    public int playerLevel;   
 }

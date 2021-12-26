@@ -8,8 +8,11 @@ public class PlayerScript : MonoBehaviour
     //Variables  
     private float damageEnemy;
     private float healthRegenTime;
-    [SerializeField] Stats stat;
-    //[SerializeField] GameObject damageCanvas;
+    private float percentageHealth;
+    [SerializeField] private ParticleSystem particleXP;
+    [SerializeField] private ParticleSystem lvlUp;
+    [SerializeField] Stats playerStat;
+
 
     //Awake
     void Awake()
@@ -19,9 +22,10 @@ public class PlayerScript : MonoBehaviour
     
     //Update
     void Update()
-    {
-        if (stat.currentHealth > stat.maxHealth) stat.currentHealth = stat.maxHealth;
-        HealthRegen();    
+    {        
+        HealthRegen();
+        StatsLevel();
+        LvlUp();
     }
  
     //Collider detection
@@ -30,27 +34,57 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.tag == "WepEnemy")
         {
             damageEnemy = collision.gameObject.GetComponent<Weapon>().damage;
-            stat.currentHealth -= damageEnemy;
-            //damageCanvas.SetActive(true);
+            playerStat.currentHealth -= damageEnemy;
             Invoke(nameof(DmgOff), 0.5f);
         }
+    }
+
+    //Verify Stats lvl
+    private void StatsLevel()
+    {
+        //Health
+        if (playerStat.currentHealth > playerStat.maxHealth) playerStat.currentHealth = playerStat.maxHealth;
+        if (playerStat.currentHealth < 0) playerStat.currentHealth = 0;
+        playerStat.maxHealth = ((playerStat.playerLevel + 1) * 10) + playerStat.healthModifier;
+
+        //Health %
+        percentageHealth = Mathf.Ceil((playerStat.currentHealth * 100) / playerStat.maxHealth);
+        playerStat.totalHealthText = percentageHealth.ToString() + "%";
+        
+
+        //XP
+        if (playerStat.currentXpPlayer < 0) playerStat.currentXpPlayer = 0;
+        playerStat.maxXpPlayer = ((playerStat.playerLevel + 1) * 50);
+
     }
 
     //Dmg off
     private void DmgOff()
     {
         damageEnemy = 0;
-        //damageCanvas.SetActive(false);
     }
 
-    void HealthRegen()
+    private void LvlUp()
     {
-        stat.healthRegen = stat.maxHealth/100;        
+        float xpCalc = Mathf.Floor(playerStat.currentXpPlayer / 50);
+        int currentLevel = Mathf.RoundToInt(xpCalc);
+        if (currentLevel > playerStat.playerLevel)
+        {
+            particleXP.Play();
+            playerStat.playerLevel += 1;
+            lvlUp.Play();
+        }
+    }
+
+
+    private void HealthRegen()
+    {
+        playerStat.healthRegen = playerStat.maxHealth/100;        
         healthRegenTime += Time.deltaTime;
 
         if (healthRegenTime >= 5)
         {
-            stat.currentHealth += stat.healthRegen;
+            playerStat.currentHealth += playerStat.healthRegen;
             healthRegenTime = 0;
         }
     }

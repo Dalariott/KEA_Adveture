@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f4ae6bb903b7745aceeb4a1cc2c8df, type: 3}
   m_Name: EnemySpiritD
   m_EditorClassIdentifier: 
-  _sightRange: 4.71
+  _sightRange: 10
   _attackRange: 1.5
   playerLayer:
     serializedVersion: 2
@@ -20,10 +20,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  textDmg: {fileID: 0}
   windowLoot: {fileID: 2844012613017699701, guid: 49a780239473bd14bba6c4560799be71, type: 3}
   damageReceived: {fileID: 8300000, guid: 0a099381ee0ae5543b80d58f90e25320, type: 3}
   destroyMyself: {fileID: 8300000, guid: 6e33587c5c1f75c4297cc7cbc1fb2d6a, type: 3}
   idle: {fileID: 8300000, guid: 66d4c3bb893b2f74a90bd592bfc49c6b, type: 3}
-  maxHealth: 100
-  currentHealth: 500
+  maxHealth: 8

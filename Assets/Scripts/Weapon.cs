@@ -2,20 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Events;
+using NaughtyAttributes;
 
 public class Weapon : MonoBehaviour
 {
+
+
+    private Behaviour bhvr;
+    [SerializeField] ParticleSystem particleHitEnemy;
 
     //Sound vars
     AudioSource _audioSource;
     [SerializeField] AudioClip CollideEnemyAudio;
     [SerializeField] AudioClip collideAudio; 
-    private Behaviour bhvr;
-    [SerializeField]ParticleSystem slash;
-
-
-    //Damage vars
+   
+   //Damage vars
     public float damage;
+    private float damageInit = 2f;
+    [SerializeField] EnemyStats enemyStat;
+    [SerializeField] Stats playerStat;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,14 +36,26 @@ public class Weapon : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             _audioSource.PlayOneShot(CollideEnemyAudio, 0.6F);
-            slash.Play();
+            particleHitEnemy.Play();
             Invoke(nameof(FXOff), 0.3f);
         }       
 
     }
 
+    private void DamagePlayer()
+    {
+        if (enemyStat)
+        {
+            
+        }
+        else
+        {
+            damage = (damageInit * playerStat.strenghtPlayer) / 2f;
+        }
+    }
+
     void FXOff()
     {
-        slash.Stop();
+        particleHitEnemy.Stop();
     }
 }

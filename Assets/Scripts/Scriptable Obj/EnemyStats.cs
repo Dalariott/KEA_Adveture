@@ -14,14 +14,14 @@ public class EnemyStats : ScriptableObject
     public float _sightRange, _attackRange;
     public LayerMask playerLayer, groundLayer;
     [SerializeField] GameObject windowLoot;
+    
     //Sound
     public AudioClip damageReceived;
     public AudioClip destroyMyself;
     public AudioClip idle;
 
     //Stats
-    public float maxHealth;
-    public float currentHealth;
+    public float maxHealth;    
 
     
 }
