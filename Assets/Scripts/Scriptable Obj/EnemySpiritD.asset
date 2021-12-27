@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f4ae6bb903b7745aceeb4a1cc2c8df, type: 3}
   m_Name: EnemySpiritD
   m_EditorClassIdentifier: 
-  _sightRange: 10
+  _sightRange: 5
   _attackRange: 1.5
   playerLayer:
     serializedVersion: 2

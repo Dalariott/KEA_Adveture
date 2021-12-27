@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
 
     private Behaviour bhvr;
     [SerializeField] ParticleSystem particleHitEnemy;
+    [SerializeField] ParticleSystem particleHitEnemyWeapon;
 
     //Sound vars
     AudioSource _audioSource;
@@ -20,7 +21,6 @@ public class Weapon : MonoBehaviour
    //Damage vars
     public float damage;
     private float damageInit = 2f;
-    [SerializeField] EnemyStats enemyStat;
     [SerializeField] Stats playerStat;
 
 
@@ -42,16 +42,20 @@ public class Weapon : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag == "Weapon Enemy")
+        {
+            particleHitEnemyWeapon.Play();
+        }
+    }
+
     private void DamagePlayer()
     {
-        if (enemyStat)
-        {
-            
-        }
-        else
+        if (playerStat)
         {
             damage = (damageInit * playerStat.strenghtPlayer) / 2f;
-        }
+        }       
     }
 
     void FXOff()

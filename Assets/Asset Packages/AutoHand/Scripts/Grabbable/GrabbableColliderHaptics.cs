@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Autohand
 {
     [RequireComponent(typeof(Grabbable))]
-    public class GrabbableCollisiderHaptics : MonoBehaviour
+    public class GrabbableColliderHaptics : MonoBehaviour
     {
         [Tooltip("The layers that cause the sound to play")]
         public LayerMask collisionTriggers = ~0;
@@ -38,15 +38,15 @@ namespace Autohand
                 StopCoroutine(playRoutine);
         }
 
-        void OnColliderEnter(Collider collision)
+        void OnTriggerEnter(Collider collision)
         {
             if (canPlay && collisionTriggers == (collisionTriggers | (1 << collision.gameObject.layer)))
             {
                 if (body != null)
                 {
-                    if (collision.collider.attachedRigidbody == null || collision.collider.attachedRigidbody.mass > 0.0000001f)
+                    if (collision.GetComponent<Collider>().attachedRigidbody == null || collision.GetComponent<Collider>().attachedRigidbody.mass > 0.0000001f)
                     {
-                        var magnitude = collision.relativeVelocity.magnitude;
+                        var magnitude = 1f;
                         grab.PlayHapticVibration(Mathf.Clamp(velocityDurationCurve.Evaluate(magnitude), 0, maxDuration), velocityAmpCurve.Evaluate(magnitude * velocityAmp) * hapticAmp);
                         if (playRoutine != null)
                             StopCoroutine(playRoutine);

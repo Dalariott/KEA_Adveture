@@ -70,7 +70,6 @@ public class PlayerScript : MonoBehaviour
         int currentLevel = Mathf.RoundToInt(xpCalc);
         if (currentLevel > playerStat.playerLevel)
         {
-            particleXP.Play();
             playerStat.playerLevel += 1;
             lvlUp.Play();
         }

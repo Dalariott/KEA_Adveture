@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.Animations.Rigging;
 
 public class Enemy : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyStats stat;
     [SerializeField] Stats playerStat;
     [SerializeField] int xpReward;
+    [SerializeField] GameObject turnHead;
 
     //Private
     private bool _inSight, _inRangeAttack;
@@ -58,12 +60,12 @@ public class Enemy : MonoBehaviour
             AttackRange();
             if (dmgCount < 4.5)
             {
-                _anim.SetBool("Attack", false);
+                //_anim.SetBool("Attack", false);
                 dmgCount += Time.deltaTime;
             }
             else if (dmgCount > 4.5)
             {
-                _anim.SetBool("Attack", true);
+                _anim.Play("StandingMeleeAttackB");
                 dmgCount = 0;
             }            
         }
@@ -79,6 +81,7 @@ public class Enemy : MonoBehaviour
             _anim.SetBool("Walk", false);
             _anim.SetBool("Idle", true);
             _ownNavMesh.ResetPath();
+            //turnHead.SetWeight(0f);
         }
     }
 
@@ -90,6 +93,7 @@ public class Enemy : MonoBehaviour
         _anim.SetBool("Fight", false);
         _anim.SetBool("Walk", true);
         _ownNavMesh.destination = _playerPosition.position;
+        turnHead.SetActive(true);
     }
 
 
@@ -132,7 +136,7 @@ public class Enemy : MonoBehaviour
     {
         if(col.gameObject.tag == "Weapon")
         {
-            _anim.SetBool("DamageFront", true);
+            _anim.Play("Hit Left Reaction");
             damageWeapon = col.gameObject.GetComponent<Weapon>().damage;
             DmgReceived(damageWeapon);
             Invoke(nameof(DmgOff), 0.5f);

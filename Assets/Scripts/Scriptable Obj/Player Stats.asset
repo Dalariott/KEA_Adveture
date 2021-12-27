@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c161130e6d65446a26c8d0fbf17ea4, type: 3}
   m_Name: Player Stats
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 3.3999987
-  totalHealthText: 34%
-  healthRegen: 0.1
-  maxXpPlayer: 50
-  currentXpPlayer: 1
+  maxHealth: 20
+  currentHealth: 20
+  totalHealthText: 100%
+  healthRegen: 0.2
+  maxXpPlayer: 100
+  currentXpPlayer: 58
   strenghtPlayer: 1
   healthModifier: 0
-  playerLevel: 0
+  playerLevel: 1
